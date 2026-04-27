@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="音楽が、部屋になる。— MUSEE は、音楽が流れるとき、アルバムアートをアーカイブクオリティで壁に映し出します。">
+  <title>MUSEE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <button id="lang-toggle" aria-label="Switch language">EN</button>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <!-- Drop hero.jpg (LP-scale display on wall, 1600×1000px) into this folder to replace placeholder -->
+      <div class="hero-image">
+        <img src="hero.jpg" alt="MUSEE displayed on a wall" class="hero-photo">
+      </div>
+    </section>
+
+    <section class="statement">
+      <h1>
+        <span class="jp">音楽が、部屋になる。</span>
+        <span class="en">Music, on your wall.</span>
+      </h1>
+    </section>
+
+    <section class="capture">
+      <form id="email-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input
+          type="email"
+          name="email"
+          required
+          autocomplete="email"
+          placeholder="メールアドレス"
+          data-placeholder-en="Email address"
+        >
+        <button type="submit">
+          <span class="jp">早期アクセスを受け取る</span>
+          <span class="en">Get early access</span>
+        </button>
+      </form>
+      <p id="form-success" hidden>
+        <span class="jp">ありがとうございます。ご連絡をお待ちください。</span>
+        <span class="en">Thank you — we'll be in touch.</span>
+      </p>
+    </section>
+
+    <section class="body">
+      <p>
+        <span class="jp">MUSEEは、音楽が流れているとき、アルバムアートをアーカイブクオリティで壁に映し出します。SpotifyかApple Musicを一度つなぐだけ。音楽が止まれば、最後の一枚がそのまま残る。あなたの部屋が、あなたの聴き方を持ちはじめる。</span>
+        <span class="en">MUSEE shows your album art — at archival quality — when music plays. Connect Spotify or Apple Music once. That's it. When music stops, the last album stays on the display. Your room holds the shape of your listening.</span>
+      </p>
+      <p class="release">
+        <span class="jp">2026年リリース予定</span>
+        <span class="en">Coming 2026</span>
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <nav>
+      <a href="https://instagram.com/getmusee" target="_blank" rel="noopener">Instagram</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://x.com/getmusee" target="_blank" rel="noopener">X</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://pinterest.com/getmusee" target="_blank" rel="noopener">Pinterest</a>
+    </nav>
+    <p class="handle">@getmusee</p>
+  </footer>
+
+  <script>
+    // Language toggle
+    const toggle = document.getElementById('lang-toggle');
+    let lang = 'jp';
+
+    toggle.addEventListener('click', () => {
+      lang = lang === 'jp' ? 'en' : 'jp';
+      document.documentElement.setAttribute('data-lang', lang);
+      toggle.textContent = lang === 'jp' ? 'EN' : '日本語';
+      // Update email input placeholder
+      const input = document.querySelector('input[type="email"]');
+      input.placeholder = lang === 'jp' ? 'メールアドレス' : input.dataset.placeholderEn;
+    });
+
+    // Formspree async submit
+    const form = document.getElementById('email-form');
+    const success = document.getElementById('form-success');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.hidden = true;
+        success.hidden = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
