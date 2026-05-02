@@ -3,42 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="音楽が、部屋になる。— MUSEE は、音楽が流れるとき、アルバムアートをアーカイブクオリティで壁に映し出します。">
-  <meta property="og:title" content="MUSEE — 音楽が、部屋になる。">
-  <meta property="og:description" content="音楽が流れるとき、アルバムアートをアーカイブクオリティで壁に映し出します。Coming 2026.">
+  <meta name="description" content="音楽が、部屋になる。— Musee は、音楽が流れるとき、アルバムアートをアーカイブクオリティで壁に映し出します。">
+  <meta property="og:title" content="Musee — 音楽が、部屋になる。">
+  <meta property="og:description" content="音楽が流れるとき、アルバムアートをアーカイブクオリティで壁に映し出します。2026年リリース予定。">
   <meta property="og:image" content="https://getmusee.com/hero.jpg">
   <meta property="og:url" content="https://getmusee.com/">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MUSEE — 音楽が、部屋になる。">
-  <meta name="twitter:description" content="音楽が流れるとき、アルバムアートをアーカイブクオリティで壁に映し出します。Coming 2026.">
+  <meta name="twitter:title" content="Musee — 音楽が、部屋になる。">
+  <meta name="twitter:description" content="音楽が流れるとき、アルバムアートをアーカイブクオリティで壁に映し出します。2026年リリース予定。">
   <meta name="twitter:image" content="https://getmusee.com/hero.jpg">
-  <title>MUSEE</title>
+  <title>Musee</title>
+  <!-- Cormorant Garamond: Signifier proxy — swap for licensed Signifier webfont before Gate 2 -->
+  <!-- Shippori Mincho: JP mincho pairing per Cleo brand locks -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
 <body>
 
-  <header>
+  <header id="site-header">
+    <a href="/" class="wordmark" aria-label="Musee">Musee</a>
     <button id="lang-toggle" aria-label="Switch language">EN</button>
   </header>
 
   <main>
 
-    <section class="hero">
-      <!-- Drop hero.jpg (LP-scale display on wall, 1600×1000px) into this folder to replace placeholder -->
-      <div class="hero-image">
-        <img src="hero.jpg" alt="MUSEE displayed on a wall" class="hero-photo">
-      </div>
-    </section>
+    <section class="hero"></section>
 
     <section class="statement">
       <h1>
         <span class="jp">音楽が、部屋になる。</span>
-        <span class="en">Music, on your wall.</span>
+        <span class="en">Music,&ensp;on your wall.</span>
       </h1>
     </section>
 
@@ -60,8 +58,8 @@
 
     <section class="body">
       <p>
-        <span class="jp">MUSEEは、音楽が流れているとき、アルバムアートをアーカイブクオリティで壁に映し出します。SpotifyかApple Musicを一度つなぐだけ。音楽が止まれば、最後の一枚がそのまま残る。あなたの部屋が、あなたの聴き方を持ちはじめる。</span>
-        <span class="en">MUSEE shows your album art — at archival quality — when music plays. Connect Spotify or Apple Music once. That's it. When music stops, the last album stays on the display. Your room holds the shape of your listening.</span>
+        <span class="jp">Musee は、音楽が流れているとき、アルバムアートをアーカイブクオリティで壁に映し出します。Spotify か Apple Music を一度つなぐだけ。音楽が止まれば、最後の一枚がそのまま残る。あなたの部屋が、あなたの聴き方を持ちはじめる。</span>
+        <span class="en">Musee shows your album art — at archival quality — when music plays. Connect Spotify or Apple Music once. When music stops, the last album stays on the display. Your room holds the shape of your listening.</span>
       </p>
       <p class="release">
         <span class="jp">2026年リリース予定</span>
@@ -79,14 +77,12 @@
       <span aria-hidden="true">·</span>
       <a href="https://pinterest.com/getmusee" target="_blank" rel="noopener">Pinterest</a>
     </nav>
-    <p class="handle">@getmusee</p>
   </footer>
 
   <script>
     // Language toggle
     const toggle = document.getElementById('lang-toggle');
     let lang = 'jp';
-
     toggle.addEventListener('click', () => {
       lang = lang === 'jp' ? 'en' : 'jp';
       document.documentElement.setAttribute('data-lang', lang);
@@ -94,6 +90,16 @@
       const input = document.querySelector('input[type="email"]');
       input.placeholder = lang === 'jp' ? 'メールアドレス' : input.dataset.placeholderEn;
     });
+
+    // Header: white wordmark over dark hero, dark wordmark when scrolled
+    const header = document.getElementById('site-header');
+    const hero = document.querySelector('.hero');
+    function updateHeader() {
+      const threshold = (hero ? hero.offsetHeight : 0) - 72;
+      header.classList.toggle('scrolled', window.scrollY > threshold);
+    }
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    updateHeader();
   </script>
 
 </body>
